@@ -1,5 +1,5 @@
 import express, {Express} from 'express';
-import {middleware404, middlewareErrorHandler} from 'common/be/express-middlewares';
+import {ExpressMiddlewares} from 'common/be/ExpressMiddlewares';
 import {Fs} from 'common/be/services';
 
 /**
@@ -19,8 +19,8 @@ export const load = async (name: string): Promise<Express> => {
 			: next();
 	});
 
-	app.use(middleware404(name));
-	app.use(middlewareErrorHandler(name));
+	app.use(ExpressMiddlewares.notFound(name));
+	app.use(ExpressMiddlewares.errorHandler(name));
 
 	return app;
 };
